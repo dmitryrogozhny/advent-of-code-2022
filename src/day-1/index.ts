@@ -6,10 +6,20 @@ export function day1part1 (caloriesData: string[]): number {
   return maxCalories
 }
 
-export function day1part2 (): number {
-  return -1
+// https://adventofcode.com/2022/day/1#part2
+export function day1part2 (caloriesData: string[]): number {
+  const elves = parseCalories(caloriesData)
+
+  const top3 = elves.sort((a, b) => b - a).slice(0, 3).reduce((sum, value) => sum + value)
+
+  return top3
 }
 
+/**
+ * Returns a list of elves with sum of their calories
+ * @param caloriesData list of calories for elves separated by empty lines
+ * @returns list of elves with sum of calories they hold
+ */
 function parseCalories (caloriesData: string[]): number[] {
   const elves: number[] = []
 
