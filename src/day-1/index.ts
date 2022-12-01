@@ -1,3 +1,3 @@
-export function day1part1() {
-    console.log('Hello!');
+export function day1part1 (): void {
+  console.log('Hello!')
 }
