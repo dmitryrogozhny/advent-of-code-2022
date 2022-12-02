@@ -1,16 +1,20 @@
 import dotenv from 'dotenv';
-import { getLines, fetchData } from './utils';
+import { getLines, getDayData } from './utils';
 
-import { day1part1, day1part2 } from './day-1'
+import { day2part1, day2part2 } from './day2';
 
 dotenv.config();
 
 async function run() {
-    const day1Data = await fetchData(1);
-    const data = getLines(day1Data);
+    const cookie = process.env.COOKIE;
+
+    console.log(cookie);
+
+    const dayData = await getDayData(2, cookie, './data');
+    const data = getLines(dayData);
     
-    console.log(day1part1(data));
-    console.log(day1part2(data));
+    console.log(day2part1(data));
+    console.log(day2part2(data));
 
 }
 
