@@ -7,7 +7,6 @@ import path from 'path'
  * @param day The target day of the advent
  */
 export const fetchData = async (day: number, headers: { [key: string]: string }): Promise<string> => {
-  console.log(day, headers)
   const response = await fetch(`https://adventofcode.com/2022/day/${day}/input`, { headers })
   const body = await response.text()
 
@@ -20,7 +19,7 @@ export const fetchData = async (day: number, headers: { [key: string]: string })
  * @param separator Optional separator. By default, new line is used.
  * @returns List with lines of data
  */
-export const getLines = (data: string, separator = '\n'): string[] => data.split(separator)
+export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => s.length !== 0)
 
 export async function getDayData (day: number, sessionCookie: string | undefined, dataFolderPath: string): Promise<string> {
   const fileName = `day${day}.txt`
@@ -31,7 +30,7 @@ export async function getDayData (day: number, sessionCookie: string | undefined
 
     return await Promise.resolve(data)
   } catch (error) {
-    console.log(`No local version of data available for day ${day}`)
+    console.error(`No local version of data available for day ${day}`)
   }
 
   // if session cookie is available, fetch day's data from the adventofcode site
