@@ -14,9 +14,9 @@ async function run (): Promise<void> {
   PmmdzqPrVvPwwTWBwg
   wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
   ttgJtRGJQctTZtZT
-  CrZsJsPPZsGzwwsLwLmpwMDw`;
+  CrZsJsPPZsGzwwsLwLmpwMDw`
 
-  const testData = getLines(testDayData).map(s => s.trim());
+  const testData = getLines(testDayData).map(s => s.trim())
 
   console.log(day3part1(data))
   console.log(day3part2(data))
