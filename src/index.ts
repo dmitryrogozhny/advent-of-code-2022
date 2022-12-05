@@ -1,25 +1,28 @@
 import dotenv from 'dotenv'
-import { day4part1, day4part2 } from './day4'
+import { day5part1, day5part2 } from './day5'
 import { getLines, getDayData } from './utils'
 
 dotenv.config()
 
 async function run (): Promise<void> {
   const cookie = process.env.COOKIE
-  const dayData = await getDayData(4, cookie, './data')
-  const data = getLines(dayData)
+  const dayData = await getDayData(5, cookie, './data')
+  const data = getLines(dayData, false)
 
-  const testDayData = `2-4,6-8
-  2-3,4-5
-  5-7,7-9
-  2-8,3-7
-  6-6,4-6
-  2-6,4-8`
+  const testDayData = `    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
 
-  const testData = getLines(testDayData).map(s => s.trim())
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2`
 
-  console.log(day4part1(data))
-  console.log(day4part2(data))
+  // const testData = getLines(testDayData).map(s => s.trim())
+  const testData = getLines(testDayData, false);
+  console.log(day5part1(data))
+  console.log(day5part2(data))
 }
 
 run().catch((error) => console.error(error))

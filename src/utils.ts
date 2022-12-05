@@ -19,7 +19,7 @@ export const fetchData = async (day: number, headers: { [key: string]: string })
  * @param separator Optional separator. By default, new line is used.
  * @returns List with lines of data
  */
-export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => s.length !== 0)
+export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => !skipEmptyLines || s.length !== 0)
 
 export async function getDayData (day: number, sessionCookie: string | undefined, dataFolderPath: string): Promise<string> {
   const fileName = `day${day}.txt`
