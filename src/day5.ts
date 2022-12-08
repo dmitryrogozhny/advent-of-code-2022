@@ -1,3 +1,13 @@
+import { getData, getLines } from './utils'
+
+// get data for the day and run both parts
+getData(5).then((dayData) => {
+  const data = getLines(dayData, false)
+
+  console.log(day5part1(data))
+  console.log(day5part2(data))
+}).catch(e => console.error(e))
+
 type Stack = string[]
 
 interface Command {

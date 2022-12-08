@@ -1,3 +1,13 @@
+import { getData, getLines } from './utils'
+
+// get data for the day and run both parts
+getData(3).then((dayData) => {
+  const data = getLines(dayData)
+
+  console.log(day3part1(data))
+  console.log(day3part2(data))
+}).catch(e => console.error(e))
+
 // https://adventofcode.com/2022/day/3
 export function day3part1 (data: string[]): number {
   const commonItems = data.map((rucksack) => {

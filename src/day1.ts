@@ -1,3 +1,13 @@
+import { getData, getLines } from './utils'
+
+// get data for the day and run both parts
+getData(1).then((dayData) => {
+  const data = getLines(dayData, false)
+
+  console.log(day1part1(data))
+  console.log(day1part2(data))
+}).catch(e => console.error(e))
+
 // https://adventofcode.com/2022/day/1
 export function day1part1 (caloriesData: string[]): number {
   const elves = parseCalories(caloriesData)

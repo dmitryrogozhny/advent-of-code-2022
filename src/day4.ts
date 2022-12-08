@@ -1,3 +1,13 @@
+import { getData, getLines } from './utils'
+
+// get data for the day and run both parts
+getData(4).then((dayData) => {
+  const data = getLines(dayData)
+
+  console.log(day4part1(data))
+  console.log(day4part2(data))
+}).catch(e => console.error(e))
+
 interface Range {
   from: number
   to: number

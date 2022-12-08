@@ -1,3 +1,11 @@
+import { getData } from './utils'
+
+// get data for the day and run both parts
+getData(6).then((dayData) => {
+  console.log(day6part1(dayData))
+  console.log(day6part2(dayData))
+}).catch(e => console.error(e))
+
 // https://adventofcode.com/2022/day/6
 export function day6part1 (buffer: string): number {
   return findMarker(buffer, 4)
