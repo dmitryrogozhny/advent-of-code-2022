@@ -7,7 +7,7 @@ dotenv.config()
 
 async function run (): Promise<void> {
   const cookie = process.env.COOKIE
-  const dayData = await getDayData(6, cookie, './data')
+  const dayData = await getDayData(7, cookie, './data')
   const data = getLines(dayData)
   // Test cases for part 1
   // console.log(day6part1('mjqjpqmgbljsphdztnvjfqwrcgsmlb'));
@@ -16,7 +16,7 @@ async function run (): Promise<void> {
   // console.log(day6part1('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg'));
   // console.log(day6part1('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw'));
 
-  console.log(day6part1(data[0]))
+  // console.log(day6part1(data[0]))
 
   // Test cases for part 2
   // console.log(day6part2('mjqjpqmgbljsphdztnvjfqwrcgsmlb'));

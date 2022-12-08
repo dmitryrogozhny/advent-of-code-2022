@@ -1,4 +1,6 @@
 import { writeFileSync, readFileSync } from 'fs'
+import dotenv from 'dotenv'
+
 import fetch from 'node-fetch'
 import path from 'path'
 
@@ -20,6 +22,13 @@ export const fetchData = async (day: number, headers: { [key: string]: string })
  * @returns List with lines of data
  */
 export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => !skipEmptyLines || s.length !== 0)
+
+export async function getData(day: number) {
+  dotenv.config()
+
+  const cookie = process.env.COOKIE
+  return await getDayData(7, cookie, './data')
+}
 
 export async function getDayData (day: number, sessionCookie: string | undefined, dataFolderPath: string): Promise<string> {
   const fileName = `day${day}.txt`
