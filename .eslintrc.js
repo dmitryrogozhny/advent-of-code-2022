@@ -12,5 +12,12 @@ module.exports = {
     project: 'tsconfig.json'
   },
   rules: {
+    "@typescript-eslint/no-unused-vars": [
+      "error", {
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }

@@ -23,11 +23,11 @@ export const fetchData = async (day: number, headers: { [key: string]: string })
  */
 export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => !skipEmptyLines || s.length !== 0)
 
-export async function getData(day: number) {
+export async function getData (day: number): Promise<string> {
   dotenv.config()
 
   const cookie = process.env.COOKIE
-  return await getDayData(7, cookie, './data')
+  return await getDayData(day, cookie, './data')
 }
 
 export async function getDayData (day: number, sessionCookie: string | undefined, dataFolderPath: string): Promise<string> {

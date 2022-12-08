@@ -43,7 +43,7 @@ function findMarker (buffer: string, sequenceSize: number): number {
 
     // wait untill there are the right amount of characters in a sequence
     let uniquesCount = 0
-    map.forEach((value, key) => {
+    map.forEach((value) => {
       if (value === 1) {
         uniquesCount++
       }
