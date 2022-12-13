@@ -23,6 +23,20 @@ export const fetchData = async (day: number, headers: { [key: string]: string })
  */
 export const getLines = (data: string, skipEmptyLines = true, separator = '\n'): string[] => data.split(separator).filter(s => !skipEmptyLines || s.length !== 0)
 
+/**
+ * Returns the grid of characters from the specified string.
+ * @param data String with a grid
+ * @returns The grid of characters
+ */
+export function getGrid (data: string): string[][] {
+  const lines = getLines(data)
+
+  const rows = lines.map((line) => line.split(''))
+  const grid: string[][] = [...rows]
+
+  return grid
+}
+
 export async function getData (day: number): Promise<string> {
   dotenv.config()
 

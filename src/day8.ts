@@ -1,4 +1,4 @@
-import { getData, getLines } from './utils'
+import { getData, getGrid } from './utils'
 
 // get data for the day and run both parts
 getData(8).then((dayData) => {
@@ -152,18 +152,4 @@ function getViewingDistance (y: number, x: number, grid: number[][]): number {
   }
 
   return left * right * up * down
-}
-
-/**
- * Returns the grid of characters from the specified string.
- * @param data String with a grid
- * @returns The grid of characters
- */
-function getGrid (data: string): string[][] {
-  const lines = getLines(data)
-
-  const rows = lines.map((line) => line.split(''))
-  const grid: string[][] = [...rows]
-
-  return grid
 }

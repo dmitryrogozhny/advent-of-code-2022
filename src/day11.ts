@@ -18,7 +18,7 @@ Monkey 1:
 
 Monkey 2:
   Starting items: 79, 60, 97
-  Operation: new = old * old
+  Operation: new = old + 0
   Test: divisible by 13
     If true: throw to monkey 1
     If false: throw to monkey 3
@@ -28,74 +28,78 @@ Monkey 3:
   Operation: new = old + 3
   Test: divisible by 17
     If true: throw to monkey 0
-    If false: throw to monkey 1`).map((s) => s.trim());
+    If false: throw to monkey 1`).map((s) => s.trim())
 
-    const data = getLines(dayData)
+  const data = getLines(dayData)
 
-    console.log(day11part1(testData))
-    console.log(day11part1(data))
+  // console.log(day11part1(testData))
+  console.log(day11part1(data))
 
-    console.log(day11part2(testData))
+  console.log(day11part2(testData))
 //   console.log(day11part2(data))
 }).catch(e => console.error(e))
 
 interface Monkey {
-    items: number[];
-    operation: string;
-    test: number;
-    onTrueTarget: number;
-    onFalseTarget: number;
+  id: number
+  items: number[]
+  operation: string
+  test: number
+  onTrueTarget: number
+  onFalseTarget: number
 }
 
 // https://adventofcode.com/2022/day/11
-export function day11part1(monkeysData: string[]): number {
-    const monkeys = parseMonkeys(monkeysData);
+export function day11part1 (monkeysData: string[]): number {
+  const monkeys = parseMonkeys(monkeysData)
 
-    const itemsInspected = Array(monkeys.length).fill(0);
-    const roundsAmount = 20;
+  const itemsInspected: number[] = Array(monkeys.length).fill(0)
+  const roundsAmount = 20
 
-    for (let i = 0; i < roundsAmount; i++) {
-        monkeys.forEach((monkey, index) => {
-            // sum inspected items each round
-            itemsInspected[index] += monkey.items.length;
-            monkeyMove(monkey, monkeys, (old) => Math.floor(old / 3));
-        });
-    }
+  for (let i = 0; i < roundsAmount; i++) {
+    monkeys.forEach((monkey, index) => {
+      // sum inspected items each round
+      itemsInspected[index] += monkey.items.length
+      monkeyMove(monkey, monkeys, (old) => Math.floor(old / 3))
+    })
+  }
 
-    itemsInspected.sort((a, b) => b - a);
+  itemsInspected.sort((a, b) => b - a)
 
+  const monkeyBusiness = itemsInspected[0] * itemsInspected[1]
 
-    const monkeyBusiness = itemsInspected[0] * itemsInspected[1];
-
-    return monkeyBusiness;
+  return monkeyBusiness
 }
 
 // https://adventofcode.com/2022/day/11#part2
-export function day11part2(monkeysData: string[]): number {
-    const monkeys = parseMonkeys(monkeysData);
+export function day11part2 (monkeysData: string[]): number {
+  const monkeys = parseMonkeys(monkeysData)
 
-    const itemsInspected = Array(monkeys.length).fill(0);
-    const roundsAmount = 20;
-
-    for (let i = 0; i < roundsAmount; i++) {
-        monkeys.forEach((monkey, index) => {
-            if (index === 2) {
-                console.log(monkey);
-            }
-
-            // sum inspected items each round
-            itemsInspected[index] += monkey.items.length;
-            monkeyMove(monkey, monkeys, (old) => old);
-        });
+  monkeys.forEach((monkey, index) => {
+    if (index === 0) {
+      const item = monkey.items[0]
+      monkey.items = []
+      monkey.items.push(item)
+    } else {
+      monkey.items = []
     }
+  })
 
-    console.log(itemsInspected);
+  const itemsInspected: number[] = Array(monkeys.length).fill(0)
+  const roundsAmount = 100
 
-    itemsInspected.sort((a, b) => b - a);
+  for (let i = 0; i < roundsAmount; i++) {
+    monkeys.forEach((monkey, index) => {
+      // sum inspected items each round
+      itemsInspected[index] += monkey.items.length
+      monkeyMove(monkey, monkeys, (old) => old)
+    })
+  }
 
-    const monkeyBusiness = itemsInspected[0] * itemsInspected[1];
+  itemsInspected.sort((a, b) => b - a)
 
-    return monkeyBusiness;
+  const monkeyBusiness = itemsInspected[0] * itemsInspected[1]
+
+  return monkeyBusiness
 }
 
 /**
@@ -103,30 +107,31 @@ export function day11part2(monkeysData: string[]): number {
  * @param monkeysData Monkeys description
  * @returns List of Monkey objects
  */
-function parseMonkeys(monkeysData: string[]): Monkey[] {
-    const monkeys: Monkey[] = [];
-    const linesToDescribeMonkey = 6;
-    const amount = monkeysData.length / linesToDescribeMonkey;
+function parseMonkeys (monkeysData: string[]): Monkey[] {
+  const monkeys: Monkey[] = []
+  const linesToDescribeMonkey = 6
+  const amount = monkeysData.length / linesToDescribeMonkey
 
-    for (let i = 0; i < amount; i++) {
-        const itemsStr = monkeysData[i * linesToDescribeMonkey + 1].trim();
-        const operationStr = monkeysData[i * linesToDescribeMonkey + 2].trim();
-        const testStr = monkeysData[i * linesToDescribeMonkey + 3].trim();
-        const onTrueTargetStr = monkeysData[i * linesToDescribeMonkey + 4].trim();
-        const onFalseTargetStr = monkeysData[i * linesToDescribeMonkey + 5].trim();
+  for (let i = 0; i < amount; i++) {
+    const itemsStr = monkeysData[i * linesToDescribeMonkey + 1].trim()
+    const operationStr = monkeysData[i * linesToDescribeMonkey + 2].trim()
+    const testStr = monkeysData[i * linesToDescribeMonkey + 3].trim()
+    const onTrueTargetStr = monkeysData[i * linesToDescribeMonkey + 4].trim()
+    const onFalseTargetStr = monkeysData[i * linesToDescribeMonkey + 5].trim()
 
-        const monkey: Monkey = {
-            items: itemsStr.split(':')[1].split(',').map(s => s.trim()).map(s => parseInt(s, 10)),
-            operation: operationStr.split('= ')[1],
-            test: parseInt(testStr.split(' ')[3], 10),
-            onTrueTarget: parseInt(onTrueTargetStr.split(' ')[5], 10),
-            onFalseTarget: parseInt(onFalseTargetStr.split(' ')[5], 10),
-        };
-
-        monkeys.push(monkey);
+    const monkey: Monkey = {
+      id: i,
+      items: itemsStr.split(':')[1].split(',').map(s => s.trim()).map(s => parseInt(s, 10)),
+      operation: operationStr.split('= ')[1],
+      test: parseInt(testStr.split(' ')[3], 10),
+      onTrueTarget: parseInt(onTrueTargetStr.split(' ')[5], 10),
+      onFalseTarget: parseInt(onFalseTargetStr.split(' ')[5], 10)
     }
 
-    return monkeys;
+    monkeys.push(monkey)
+  }
+
+  return monkeys
 }
 
 /**
@@ -134,24 +139,26 @@ function parseMonkeys(monkeysData: string[]): Monkey[] {
  * @param monkey The current monkey
  * @param allMonkeys The list of all monkeys
  */
-function monkeyMove(monkey: Monkey, allMonkeys: Monkey[], worryLevelReductor: (old: number) => number): void {
-    // process item by item
-    while(monkey.items.length !== 0) {
-        const item = monkey.items.shift();
+function monkeyMove (monkey: Monkey, allMonkeys: Monkey[], worryLevelReductor: (old: number) => number): void {
+  // process item by item
+  while (monkey.items.length !== 0) {
+    const item = monkey.items.shift()
 
-        if (item !== undefined) {
-            const worryLevel = runOperation(monkey.operation, item);
-            const reductedWorryLevel = worryLevelReductor(worryLevel);
+    if (item !== undefined) {
+      // console.log(monkey.id);
 
-            if (reductedWorryLevel % monkey.test === 0) {
-                allMonkeys[monkey.onTrueTarget].items.push(reductedWorryLevel);
-            } else {
-                allMonkeys[monkey.onFalseTarget].items.push(reductedWorryLevel);
-            }
-        } else {
-            throw new Error(`Unexpected items length: ${monkey.items.length}`);
-        }
+      const worryLevel = runOperation(monkey.operation, item)
+      const reductedWorryLevel = worryLevelReductor(worryLevel)
+
+      if (reductedWorryLevel % monkey.test === 0) {
+        allMonkeys[monkey.onTrueTarget].items.push(reductedWorryLevel)
+      } else {
+        allMonkeys[monkey.onFalseTarget].items.push(reductedWorryLevel)
+      }
+    } else {
+      throw new Error(`Unexpected items length: ${monkey.items.length}`)
     }
+  }
 }
 
 /**
@@ -160,18 +167,18 @@ function monkeyMove(monkey: Monkey, allMonkeys: Monkey[], worryLevelReductor: (o
  * @param old Value of the old worry level
  * @returns New worry level
  */
-function runOperation(operation: string, old: number): number {
-    const [argument1Str, operator, argument2Str] = operation.split(' ');
+function runOperation (operation: string, old: number): number {
+  const [argument1Str, operator, argument2Str] = operation.split(' ')
 
-    const argument1 = (argument1Str === 'old') ? old : parseInt(argument1Str, 10);
-    const argument2 = (argument2Str === 'old') ? old : parseInt(argument2Str, 10);
+  const argument1 = (argument1Str === 'old') ? old : parseInt(argument1Str, 10)
+  const argument2 = (argument2Str === 'old') ? old : parseInt(argument2Str, 10)
 
-    switch (operator) {
-        case '+':
-            return argument1 + argument2;
-        case '*':
-            return argument1 * argument2;
-        default:
-            throw new Error(`Unknown operator ${operator} in operation ${operation}`);
-    }
+  switch (operator) {
+    case '+':
+      return argument1 + argument2
+    case '*':
+      return argument1 * argument2
+    default:
+      throw new Error(`Unknown operator ${operator} in operation ${operation}`)
+  }
 }
