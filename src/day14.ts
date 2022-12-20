@@ -45,7 +45,7 @@ export function day14part1 (rocksData: string[]): number {
 
   // find the lowest point for rocks
   caveMap.forEach((_, key) => {
-    const { _x, y } = toPoint(key)
+    const { y } = toPoint(key)
 
     if (y >= lowestPoint) {
       lowestPoint = y
@@ -91,7 +91,7 @@ export function day14part2 (rocksData: string[]): number {
 
   // find the lowest point for rocks
   caveMap.forEach((_, key) => {
-    const { _x, y } = toPoint(key)
+    const { y } = toPoint(key)
 
     if (y >= lowestPoint) {
       lowestPoint = y
