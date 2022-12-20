@@ -143,7 +143,7 @@ export function day14part2 (rocksData: string[]): number {
 
 /**
  * Moves the sand unit
- * @param sandPosition The current sand unit position 
+ * @param sandPosition The current sand unit position
  * @param caveMap The map of the cave
  * @param floorLevel The floor level
  * @returns The new position for the sand unit. If it cannot move, returns undefined.
