@@ -30,13 +30,20 @@ interface Line {
   to: Point
 }
 
+/**
+ * Gets the map key from the point coordinates
+ */
 const key = ({ x, y }: Point): string => `${x},${y}`
+/**
+ * Gets the Point from the map key
+ */
 const toPoint = (pointStr: string): Point => {
   const [xStr, yStr] = pointStr.split(',')
 
   return { x: parseInt(xStr, 10), y: parseInt(yStr, 10) }
 }
 
+// https://adventofcode.com/2022/day/14
 export function day14part1 (rocksData: string[]): number {
   const start = { x: 500, y: 0 }
 
@@ -83,6 +90,7 @@ export function day14part1 (rocksData: string[]): number {
   return sandUnits
 }
 
+// https://adventofcode.com/2022/day/14#part2
 export function day14part2 (rocksData: string[]): number {
   const start = { x: 500, y: 0 }
 
@@ -133,6 +141,13 @@ export function day14part2 (rocksData: string[]): number {
   return sandUnits
 }
 
+/**
+ * Moves the sand unit
+ * @param sandPosition The current sand unit position 
+ * @param caveMap The map of the cave
+ * @param floorLevel The floor level
+ * @returns The new position for the sand unit. If it cannot move, returns undefined.
+ */
 function move (sandPosition: Point, caveMap: Map<string, Material>, floorLevel?: number): Point | undefined {
   // move down
   const stepDown = { x: sandPosition.x, y: sandPosition.y + 1 }
@@ -156,6 +171,9 @@ function move (sandPosition: Point, caveMap: Map<string, Material>, floorLevel?:
   return undefined
 }
 
+/**
+ * Defines whether the specified point is occupied by the rock or by another sand unit.
+ */
 function isOcupied (point: Point, caveMap: Map<string, Material>, floorLevel?: number): boolean {
   if (caveMap.has(key(point))) {
     return true
@@ -168,6 +186,9 @@ function isOcupied (point: Point, caveMap: Map<string, Material>, floorLevel?: n
   return false
 }
 
+/**
+ * Parses the cave data into a map
+ */
 function getCave (rocksData: string[]): Map<string, Material> {
   const map = new Map<string, Material>()
   const lines: Line[] = []
