@@ -29,7 +29,7 @@ interface Valve {
 }
 
 let maxPressureReleased = -1
-let maxPressureReleasedWithElephant = -1
+const _maxPressureReleasedWithElephant = -1
 
 // https://adventofcode.com/2022/day/16
 export function day16part1 (scanOutput: string[]): number {
@@ -46,13 +46,13 @@ export function day16part1 (scanOutput: string[]): number {
 
 // https://adventofcode.com/2022/day/16#part2
 export function day16part2 (scanOutput: string[]): number {
-  const timeLimit = 26
-  const startingValveId = 'AA'
+  // const timeLimit = 26
+  // const startingValveId = 'AA'
 
-  const valves = parseValves(scanOutput)
-  const visited = new Map<string, number>()
+  // const valves = parseValves(scanOutput)
+  // const visited = new Map<string, number>()
 
-  return maxPressureReleasedWithElephant
+  return scanOutput.length
 }
 
 /**
